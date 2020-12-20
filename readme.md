@@ -1,4 +1,16 @@
-# browser-extension-template
+# bc-nudge (working title)
+
+Templated from [browser-extension-template](https://github.com/notlmn/browser-extension-template). Under development by [Jean](https://github.com/jeancochrane) and [Addie](https://github.com/addiebarron) :)
+
+## Development
+
+Use `npm run dev` to open a Firefox instance with the extension running as a temporary add-on. Runs `web-ext run` under the hood. The page will reload on any file changes; alternatively, press "R" in the terminal to manually reload.
+
+> ⚠️   `web-ext run` requires a couple of fields to be valid & consistent in the manifest.json, including `name`, `homepage_url`, and `applications.gecko.id`, so we shouldn't edit those yet.
+
+<br>
+
+# From template README:
 
 [link-webext-polyfill]: https://github.com/mozilla/webextension-polyfill
 [link-rgh]: https://github.com/sindresorhus/refined-github
@@ -9,10 +21,6 @@
 [link-options-sync]: https://github.com/fregante/webext-options-sync
 [link-cws-keys]: https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md
 [link-amo-keys]: https://addons.mozilla.org/en-US/developers/addon/api/key
-
-> Barebones boilerplate with webpack, options handler and auto-publishing.
-
-![Sample extension output](media/previewer.png)
 
 ## Features
 
@@ -39,41 +47,41 @@ The template bakes in a pretty basic webpack config, with no transpiling. To set
 
 1. Install Babel packages and respective loader for webpack.
 
-	```sh
-	npm i --save-dev @babel/core @babel/preset-env babel-loader
-	```
+   ```sh
+   npm i --save-dev @babel/core @babel/preset-env babel-loader
+   ```
 
 1. In `webpack.config.js`, add the following rule to process JS files.
 
-	```js
-	module: {
-		rules: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'babel-loader'
-			}
-		]
-	}
-	```
+   ```js
+   module: {
+   	rules: [
+   		{
+   			test: /\.js$/,
+   			exclude: /node_modules/,
+   			loader: "babel-loader",
+   		},
+   	];
+   }
+   ```
 
 1. Target respective browsers using `.babelrc`.
 
-	```json
-	{
-		"presets": [
-			[
-				"@babel/preset-env",
-				{
-					"targets": {
-						"chrome": "74",
-						"firefox": "67"
-					}
-				}
-			]
-		]
-	}
-	```
+   ```json
+   {
+   	"presets": [
+   		[
+   			"@babel/preset-env",
+   			{
+   				"targets": {
+   					"chrome": "74",
+   					"firefox": "67"
+   				}
+   			}
+   		]
+   	]
+   }
+   ```
 
 #### Extracting CSS
 
@@ -81,30 +89,30 @@ If you will be writing any code that will be importing CSS files from JS files, 
 
 1. Install the webpack plugin.
 
-	```sh
-	npm i --save-dev mini-css-extract-plugin
-	```
+   ```sh
+   npm i --save-dev mini-css-extract-plugin
+   ```
 
 1. Modify the webpack config as mentioned to let this plugin handle CSS imports.
 
-	```js
-	// Import plugin
-	const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+   ```js
+   // Import plugin
+   const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-	// Under `module.rules`
-	{
-		test: /\.css$/,
-		use: [
-			MiniCssExtractPlugin.loader,
-			'css-loader'
-		]
-	}
+   // Under `module.rules`
+   {
+   	test: /\.css$/,
+   	use: [
+   		MiniCssExtractPlugin.loader,
+   		'css-loader'
+   	]
+   }
 
-	// Under `plugins`
-	new MiniCssExtractPlugin({
-		filename: 'content.css'
-	})
-	```
+   // Under `plugins`
+   new MiniCssExtractPlugin({
+   	filename: 'content.css'
+   })
+   ```
 
 #### TypeScript
 
@@ -112,34 +120,32 @@ TypeScript and Babel configs conflict each other, so you can only use one of the
 
 1. Install TypeScript and respective loader for webpack
 
-	```sh
-	npm i --save-dev typescript ts-loader @types/firefox-webext-browser
-	```
+   ```sh
+   npm i --save-dev typescript ts-loader @types/firefox-webext-browser
+   ```
 
 1. Use the following webpack rule in the config file.
 
-	```js
-	{
-		test: /\.(js|ts|tsx)$/,
-		loader: 'ts-loader',
-		exclude: /node_modules/
-	},
-	```
+   ```js
+   {
+   	test: /\.(js|ts|tsx)$/,
+   	loader: 'ts-loader',
+   	exclude: /node_modules/
+   },
+   ```
 
 1. Use the following as `tsconfig.json`, uses [sindresorhus/tsconfig][link-tsconfig] (install it as dependecy before using).
 
-	```json
-	{
-		"extends": "@sindresorhus/tsconfig",
-		"compilerOptions": {
-			"target": "esnext",
-			"declaration": false
-		},
-		"include": [
-			"source"
-		]
-	}
-	```
+   ```json
+   {
+   	"extends": "@sindresorhus/tsconfig",
+   	"compilerOptions": {
+   		"target": "esnext",
+   		"declaration": false
+   	},
+   	"include": ["source"]
+   }
+   ```
 
 TypeScript requires additional configuration depending on how you set it up, like [linting][link-xo-ts].
 

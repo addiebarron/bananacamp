@@ -1,13 +1,13 @@
 {
-	"name": "Awesome Extension",
+	"name": "bc-nudge",
 	"version": "0.0.0",
-	"description": "An awesome new browser extension",
-	"homepage_url": "https://github.com/awesome-templates/browser-extension-template",
+	"description": "Listening on Spotify? Buy it on Bandcamp, ya goob!",
+	"homepage_url": "https://github.com/addiebarron/bc-nudge",
 	"manifest_version": 2,
 	"minimum_chrome_version": "74",
 	"applications": {
 		"gecko": {
-			"id": "awesome-extension@notlmn.github.io",
+			"id": "bc-nudge@addiebarron.github.io",
 			"strict_min_version": "67.0"
 		}
 	},
@@ -20,6 +20,13 @@
 	"options_ui": {
 		"chrome_style": true,
 		"page": "options.html"
+	},
+	"browser_action": {
+		"default_icon": {
+			"128": "icon.png"
+		},
+		"default_popup": "options.html",
+		"default_title": "awesome-extension"
 	},
 	"background": {
 		"persistent": false,
