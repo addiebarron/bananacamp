@@ -1,22 +1,60 @@
-import optionsStorage from './options-storage';
+// import optionsStorage from './options-storage';
 
-optionsStorage.syncForm('#options-form');
+// optionsStorage.syncForm('#search-form');
 
-const rangeInputs = [...document.querySelectorAll('input[type="range"][name^="color"]')];
-const numberInputs = [...document.querySelectorAll('input[type="number"][name^="color"]')];
-const output = document.querySelector('.color-output');
+import bandcamp from 'bandcamp-scraper';
 
-function updateColor() {
-	output.style.backgroundColor = `rgb(${rangeInputs[0].value}, ${rangeInputs[1].value}, ${rangeInputs[2].value})`;
+const optionsForm = document.querySelector('#search-form');
+const textInput = document.querySelector('#search-input input');
+const resultsPre = document.querySelector('#results-pre');
+
+let query = textInput.value;
+
+const bc_params = {
+	query,
+	page: 1,
+};
+
+function do_search (bc_params) {
+	return new Promise( (resolve, reject) => {
+		try {
+			bandcamp.search(bc_params, (error, results) => {
+				if (error) reject(error)
+				resolve(results)
+			});
+		} catch (err) {
+			console.log(err);
+			reject(err);
+		}		
+	});
 }
 
-function updateInputField(event) {
-	numberInputs[rangeInputs.indexOf(event.currentTarget)].value = event.currentTarget.value;
+async function onFormSubmit (e) {
+	e.preventDefault();
+
+	let result;
+	resultsPre.classList.add('loading');
+	notify('fetching results...');
+
+	try {
+		result = await do_search(bc_params);
+		resultsPre.classList.remove('loading');
+		notify(result);
+	} catch (err) {
+		notify(err);
+	}
 }
 
-for (const input of rangeInputs) {
-	input.addEventListener('input', updateColor);
-	input.addEventListener('input', updateInputField);
+function notify (result) {	
+	if (result instanceof Error) {
+		console.error(result)
+		resultsPre.classList.add('error');
+		resultsPre.innerText = result.name + ': ' + result.message;
+	} else {
+		console.log(result);
+		resultsPre.classList.remove('error');
+		resultsPre.innerText = result;
+	}
 }
 
-window.addEventListener('load', updateColor);
+optionsForm.addEventListener('submit', onFormSubmit);

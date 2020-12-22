@@ -15,8 +15,10 @@
 		"128": "icon.png"
 	},
 	"permissions": [
-		"storage"
+		"storage",
+		"*://*.bandcamp.com/*"
 	],
+	"content_security_policy": "script-src 'self' 'unsafe-eval' *.bandcamp.com/*; object-src 'self'",
 	"options_ui": {
 		"chrome_style": true,
 		"page": "options.html"
