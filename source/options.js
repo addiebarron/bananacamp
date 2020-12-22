@@ -8,38 +8,22 @@ const optionsForm = document.querySelector('#search-form');
 const textInput = document.querySelector('#search-input input');
 const resultsPre = document.querySelector('#results-pre');
 
-let query = textInput.value;
-
-const bc_params = {
-	query,
-	page: 1,
-};
-
-function do_search (bc_params) {
-	return new Promise( (resolve, reject) => {
-		try {
-			bandcamp.search(bc_params, (error, results) => {
-				if (error) reject(error)
-				resolve(results)
-			});
-		} catch (err) {
-			console.log(err);
-			reject(err);
-		}		
-	});
-}
-
 async function onFormSubmit (e) {
 	e.preventDefault();
 
-	let result;
+	const params = {
+		query: textInput.value,
+		page: 1,
+	};
+
 	resultsPre.classList.add('loading');
 	notify('fetching results...');
 
 	try {
-		result = await do_search(bc_params);
+		const result = await bandcamp.search(params);
+		const displayData = result.map(item => `${item.type}:\t${item.url}`).join('\n');
 		resultsPre.classList.remove('loading');
-		notify(result);
+		notify(displayData);
 	} catch (err) {
 		notify(err);
 	}

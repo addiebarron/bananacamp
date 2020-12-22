@@ -13,7 +13,7 @@
 		"release:firefox": "cd distribution && web-ext-submit",
 		"test": "run-s lint:* build",
 		"watch": "webpack --mode=development --watch",
-		"run": "web-ext run --source-dir=./distribution",
+		"run": "web-ext run --source-dir ./distribution --args about:addons about:devtools-toolbox?type=extension\\&id=bc-nudge%40addiebarron.github.io",
 		"dev": "concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run"
 	},
 	"xo": {
