@@ -1,0 +1,67 @@
+/* structure */
+.bc-nudge * {
+  box-sizing: border-box;
+}
+.bc-nudge {
+  display: inline;
+  padding: 3px 0.5em;
+  margin-left: 13px;
+  transition: border-color ease 0.2s;
+  border: solid 1px transparent; /* prevent any shifting when the border is added */
+  border-radius: 5px;
+}
+.bc-nudge img {
+  position: relative;
+  bottom: 2px;
+  vertical-align: middle;
+  height: 1.3em;
+  padding-right: 4px;
+}
+
+/* loading state */
+.bc-nudge:not(.success):not(.failure) {
+  color: rgba(255, 255, 255, 0.4);
+}
+.bc-nudge:not(.success):not(.failure):after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  animation: ellipsis steps(4, end) 0.5s infinite;
+  content: '\2026'; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+@keyframes ellipsis {
+  to {
+    width: 20px;
+  }
+}
+
+/* success state */
+.bc-nudge.success {
+  border-color: hsla(0, 0%, 100%, 0.3);
+  animation: look-at-me 0.3s cubic-bezier(0.3, 3, 0.5, 1.5);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+}
+.bc-nudge.success:hover {
+  border-color: white;
+  color: white;
+}
+.bc-nudge.success a {
+  color: hsla(0, 0%, 100%, 0.9);
+  text-decoration: none;
+}
+@keyframes look-at-me {
+  0% {
+    border-color: transparent;
+  }
+  100% {
+    border-color: hsla(0, 0%, 100%, 0.3);
+  }
+}
+
+/* failure state */
+.bc-nudge.failure {
+  color: rgba(255, 255, 255, 0.5);
+  border-color: hsla(0, 0%, 100%, 0.3);
+}

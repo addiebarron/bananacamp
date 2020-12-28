@@ -12,7 +12,9 @@
     "dev": "npm run build && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run"
   },
   "dependencies": {
+    "arrive": "^2.4.1",
     "bandcamp-search-scraper": "github:addiebarron/bandcamp-search-scraper",
+    "jquery": "^3.5.1",
     "webextension-polyfill": "^0.4.0"
   },
   "devDependencies": {

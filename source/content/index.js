@@ -1,79 +1,94 @@
-/* RUNS ON DOCUMENT READY */
+/* Runs on open.spotify.web URLs */
 
-import { spotifyScrape, parseSpotifyURL } from './spotify';
-import { bandcampSearch } from './bandcamp';
+import $ from 'jquery';
+import 'arrive';
+import bandcamp from 'bandcamp-search-scraper';
+import { selectors } from './selectors';
 
 // establish a port for communicating with the background script
 let port = browser.runtime.connect({ name: 'url-change-port' });
-
 // run our code each time the SPA url changes
 port.onMessage.addListener(onURLChange);
 // run once on page load
 onURLChange({ url: window.location.href });
 
-// to be run when the page URL changes
+// to be run when the page URL changes. can't be async, for webextension reasons:
+// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage#Parameters
 function onURLChange(message) {
-  const newURL = message.url;
-  const { type } = parseSpotifyURL(newURL);
-  // can't use async here, for webextension reasons
-  // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage#Parameters
-  spotifyScrape(type).then(processScrapedData).catch(console.error);
-}
-
-async function processScrapedData(spData) {
-  const bcResults = await bandcampSearch(spData.artist);
-  let canonical;
-  bcResults
-    .filter((result) => result.type == spData.type)
-    .forEach((result) => {
-      if (
-        result.type == 'artist' &&
-        result.name.toLowerCase() == spData.artist.toLowerCase()
-      ) {
-        canonical = result;
-      } else if (
-        result.type == 'album' &&
-        result.name.toLowerCase() == spData.album.toLowerCase() &&
-        result.artist.toLowerCase() == spData.artist.toLowerCase()
-      ) {
-        canonical = result;
-      }
-    });
-  if (canonical) {
-    console.log(`This ${canonical.type} is on Bandcamp: ${canonical.url}`);
-  } else {
-    console.log(`Couldn't find this ${spData.type} on Bandcamp.`);
+  // run our code only on an album/artist page
+  if (/\/(album|artist)\//.test(message.url)) {
+    runScraper().catch(console.error);
   }
 }
 
-// scrape a spotify web page for artist and album names
+// process data returned by spotifyScrape
+async function runScraper() {
+  const { artist, type } = await spotifyScrape();
 
-// import SpotifyWebApi from 'spotify-web-api-js';
+  // render initial state
+  $('.bc-nudge').remove(); // clear any stragglers;
+  const bcLogo = browser.runtime.getURL('media/bc-logo.png');
+  const $bcNudge = $(
+    `<div class="bc-nudge"><img src="${bcLogo}"/></div>`
+  ).appendTo(selectors[type].msgElement);
 
-// const spotify = new SpotifyWebApi();
+  // add loader
+  $bcNudge.append(`<span class="loader">Searching Bandcamp</span>`);
 
-// const spotifyEndpointByType = {
-//   album: spotify.getAlbum,
-//   track: spotify.getTrack,
-//   artist: spotify.getArtist,
-// };
+  // scrape bandcamp search
+  const bcResult = await getBCResult(artist);
 
-// (async () => {
-//   const { type, id } = parseSpotifyURL(window.location.href);
-//   if (type && id) {
-//     const spotifyRequest = spotifyEndpointByType[type];
-//     try {
-//       const response = await spotifyRequest(id);
-//       processResponse(response);
-//     } catch (error) {
-//       console.error(error, error.stack);
-//     }
-//   } else {
-//     console.log('Not on an album, artist, or track page');
-//   }
-// })();
+  // remove loader
+  $bcNudge.find('.loader').remove();
 
-// function processResponse(obj) {
-//   // placeholder
-//   console.log('Processing response: ' + obj);
-// }
+  // render final state
+  if (bcResult) {
+    $bcNudge
+      .addClass('success')
+      .append(
+        `<a target="_blank" href="${bcResult.url}">Found a match on Bandcamp</a>`
+      );
+  } else {
+    $bcNudge
+      .addClass('failure')
+      .append(`<span>Couldn't find this artist on Bandcamp</span>`);
+  }
+}
+
+async function getBCResult(artist) {
+  const params = {
+    query: artist,
+    page: 1,
+  };
+  const bcResults = await bandcamp.search(params);
+  // find the best result
+  return bcResults.find(
+    (result) =>
+      result.type == 'artist' &&
+      result.name.toLowerCase() == artist.toLowerCase()
+  );
+  // returns a bandcamp search result object or null
+}
+
+// get artist name from the current spotify SPA view
+function spotifyScrape() {
+  return new Promise((resolve) => {
+    document.unbindArrive();
+    for (let type in selectors) {
+      document.arrive(
+        selectors[type].artist,
+        { onceOnly: true, existing: true },
+        (el) => {
+          if (el.innerText) {
+            document.unbindArrive();
+            resolve({
+              artist: el.innerText,
+              type: type,
+            });
+          }
+        }
+      );
+    }
+  });
+  // resolves to an object with "artist" and "type" (page type) props
+}

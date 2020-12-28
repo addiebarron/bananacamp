@@ -1,6 +1,6 @@
 {
   "name": "bc-nudge",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Listening on Spotify? Buy it on Bandcamp, ya goob!",
   "homepage_url": "https://github.com/addiebarron/bc-nudge",
   "manifest_version": 2,
@@ -14,12 +14,8 @@
   "icons": {
     "128": "icon.png"
   },
-  "permissions": [
-    "storage",
-    "tabs",
-    "*://*.bandcamp.com/*",
-    "*://*.spotify.com/*"
-  ],
+  "web_accessible_resources": ["media/*"],
+  "permissions": ["tabs", "*://*.bandcamp.com/*", "*://*.spotify.com/*"],
   "content_security_policy": "script-src 'self' 'unsafe-eval' *.bandcamp.com/*; object-src 'self'",
   "options_ui": {
     "chrome_style": true,
@@ -28,6 +24,7 @@
   "content_scripts": [
     {
       "matches": ["*://open.spotify.com/*"],
+      "css": ["content/style.css"],
       "js": ["content/index.js"],
       "run_at": "document_idle"
     }
