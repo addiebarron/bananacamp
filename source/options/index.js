@@ -1,7 +1,3 @@
-// import optionsStorage from './options-storage';
-
-// optionsStorage.syncForm('#search-form');
-
 import bandcamp from 'bandcamp-search-scraper';
 
 const optionsForm = document.querySelector('#search-form');

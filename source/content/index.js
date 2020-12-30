@@ -46,7 +46,7 @@ async function runScraper() {
     $bcNudge
       .addClass('success')
       .append(
-        `<a target="_blank" href="${bcResult.url}">Found a match on Bandcamp</a>`
+        `<a target="_blank" href="${bcResult.url}">Support this artist on Bandcamp</a>`
       );
   } else {
     $bcNudge
