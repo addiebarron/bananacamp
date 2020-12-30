@@ -17,10 +17,6 @@
   "web_accessible_resources": ["media/*"],
   "permissions": ["tabs", "*://*.bandcamp.com/*", "*://*.spotify.com/*"],
   "content_security_policy": "script-src 'self' 'unsafe-eval' *.bandcamp.com/*; object-src 'self'",
-  "options_ui": {
-    "chrome_style": true,
-    "page": "options/options.html"
-  },
   "content_scripts": [
     {
       "matches": ["*://open.spotify.com/*"],
@@ -32,9 +28,7 @@
   "browser_action": {
     "default_icon": {
       "128": "icon.png"
-    },
-    "default_popup": "options/options.html",
-    "default_title": "Proof of concept"
+    }
   },
   "background": {
     "scripts": ["browser-polyfill.min.js", "background/index.js"]

@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-unassigned-import
-// import './options/options-storage';
+/* Runs in the background across all tabs */
 
 let port;
 
