@@ -74,7 +74,8 @@ async function getBCResult(artist) {
 function spotifyScrape() {
   return new Promise((resolve) => {
     document.unbindArrive();
-    for (let [type, selector] in Object.entries(selectors)) {
+    for (let [type, selector] of Object.entries(selectors)) {
+      console.log(selector);
       document.arrive(
         selector.artist,
         { onceOnly: true, existing: true },
