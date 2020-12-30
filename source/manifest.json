@@ -17,6 +17,10 @@
   "web_accessible_resources": ["media/*"],
   "permissions": ["tabs", "*://*.bandcamp.com/*", "*://*.spotify.com/*"],
   "content_security_policy": "script-src 'self' 'unsafe-eval' *.bandcamp.com/*; object-src 'self'",
+  "options_ui": {
+    "chrome_style": true,
+    "page": "options/options.html"
+  },
   "content_scripts": [
     {
       "matches": ["*://open.spotify.com/*"],
