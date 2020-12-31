@@ -2,6 +2,7 @@ const path = require('path');
 const SizePlugin = require('size-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -16,15 +17,16 @@ module.exports = {
     filename: '[name]/index.js',
   },
   plugins: [
+    new CleanWebpackPlugin({
+      cleanStaleWebpackAssets: false,
+    }),
     new SizePlugin(),
     new CopyWebpackPlugin([
       {
         from: '**/*',
         context: 'source',
         ignore: ['*.js'],
-      },
-      {
-        from: 'node_modules/webextension-polyfill/dist/browser-polyfill.min.js',
+        copyUnmodified: true,
       },
     ]),
   ],

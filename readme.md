@@ -13,3 +13,14 @@ Use `npm run dev` to open a Firefox instance with the extension running as a tem
 The extension adds an extra element into the Spotify Web UI which links to the artist's Bandcamp page, if one is found. Only artist and album pages are affected.
 
 ![Artist page](media/artist.png)
+
+## TODO
+
+- Content scripts cannot make fetch requests in Chrome. Move bandcamp-search-scraper calls to background.js
+- Differentiate between errors and no-results conditions?
+
+## Wishlist
+
+- Cache previously visited artists.
+- Option to add bandcamp accounts to artists with differing names, or specify a bandcamp page that is different from the detected one.
+- When Bandcamp search improves, or a public API is released: search by album specifically.

@@ -1,12 +1,13 @@
 /* Runs on open.spotify.web URLs */
 
+import browser from 'webextension-polyfill';
 import $ from 'jquery';
 import 'arrive';
-import bandcamp from 'bandcamp-search-scraper';
 import { selectors } from './selectors';
 
 // establish a port for communicating with the background script
 let port = browser.runtime.connect({ name: 'url-change-port' });
+
 // run our code each time the SPA url changes
 port.onMessage.addListener(onURLChange);
 // run once on page load
@@ -21,13 +22,13 @@ function onURLChange(message) {
   }
 }
 
-// process data returned by spotifyScrape
+// main function
 async function runScraper() {
   const { artist, type } = await spotifyScrape();
 
   // render initial state
   $('.bc-nudge').remove(); // clear any stragglers;
-  const bcLogo = browser.runtime.getURL('media/bc-logo.png');
+  const bcLogo = browser.runtime.getURL('media/bc-logo@64.png');
   const $bcNudge = $(
     `<div class="bc-nudge"><img src="${bcLogo}"/></div>`
   ).appendTo(selectors[type].msgElement);
@@ -55,12 +56,21 @@ async function runScraper() {
   }
 }
 
+// get the artist's bandcamp URL
 async function getBCResult(artist) {
-  const params = {
+  const bcParams = {
     query: artist,
     page: 1,
   };
-  const bcResults = await bandcamp.search(params);
+  // ask background script to fetch for us (CORS workaround)
+  let bcResults;
+  try {
+    const response = await browser.runtime.sendMessage({ bcParams });
+    bcResults = response.bcResults;
+  } catch (err) {
+    console.log(err, err.stack);
+    bcResults = [];
+  }
   // find the best result
   return bcResults.find(
     (result) =>
@@ -75,7 +85,6 @@ function spotifyScrape() {
   return new Promise((resolve) => {
     document.unbindArrive();
     for (let [type, selector] of Object.entries(selectors)) {
-      console.log(selector);
       document.arrive(
         selector.artist,
         { onceOnly: true, existing: true },

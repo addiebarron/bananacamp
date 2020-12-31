@@ -2,10 +2,11 @@
   "name": "bc-nudge",
   "version": "0.0.1",
   "description": "Listening on Spotify? Buy it on Bandcamp, ya goob!",
+  "author": "Addie B",
   "homepage_url": "https://github.com/addiebarron/bc-nudge",
   "manifest_version": 2,
   "minimum_chrome_version": "74",
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "bc-nudge@addiebarron.github.io",
       "strict_min_version": "67.0"
@@ -14,9 +15,9 @@
   "icons": {
     "128": "icon.png"
   },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';",
   "web_accessible_resources": ["media/*"],
-  "permissions": ["tabs", "*://*.bandcamp.com/*", "*://*.spotify.com/*"],
-  "content_security_policy": "script-src 'self' 'unsafe-eval' *.bandcamp.com/*; object-src 'self'",
+  "permissions": ["tabs", "*://bandcamp.com/*", "*://*.spotify.com/*"],
   "options_ui": {
     "chrome_style": true,
     "page": "options/options.html"
@@ -25,8 +26,7 @@
     {
       "matches": ["*://open.spotify.com/*"],
       "css": ["content/style.css"],
-      "js": ["content/index.js"],
-      "run_at": "document_idle"
+      "js": ["content/index.js"]
     }
   ],
   "browser_action": {
@@ -35,6 +35,6 @@
     }
   },
   "background": {
-    "scripts": ["browser-polyfill.min.js", "background/index.js"]
+    "scripts": ["background/index.js"]
   }
 }
