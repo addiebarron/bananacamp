@@ -4,12 +4,25 @@ Templated from [browser-extension-template](https://github.com/notlmn/browser-ex
 
 ## Development
 
-Use `npm run dev` to open a Firefox instance with the extension running as a temporary add-on. The extension and any running scripts (not the browser or current page) will auto-reload when changes are detected. Uses `web-ext run` and `webpack --watch` under the hood.
+Use `npm run dev` to open a Firefox instance with the extension running as a temporary add-on.
 
-> ⚠️   `web-ext run` requires a couple of fields to be valid & consistent in the manifest.json, including `name`, `homepage_url`, and `applications.gecko.id`, so we shouldn't edit those yet.
+Use `npm run dev:chrome` to do the same in a Chrome instance.
+
+The extension and any running scripts (not the browser or current page) will auto-reload when changes are detected. Uses `web-ext run` and `webpack --watch` under the hood.
 
 ## Functionality
 
 The extension adds an extra element into the Spotify Web UI which links to the artist's Bandcamp page, if one is found. Only artist and album pages are affected.
 
 ![Artist page](media/artist.png)
+
+## TODO
+
+- Differentiate between errors and no-results conditions?
+- ✅  *Content scripts cannot make fetch requests in Chrome. Move bandcamp-search-scraper calls to background.js*
+
+## Wishlist
+
+- Cache previously visited artists.
+- Option to manually associate BC accounts with Spotify artists, for cases where the BC/Spotfy names are different, there are multiple artists with the same name, or the artist name uses special characters. Store these associations in a remote DB & query there before searching BC?
+- When Bandcamp search improves, or a public API is released: search by album specifically.

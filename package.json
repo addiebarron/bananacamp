@@ -8,8 +8,13 @@
     "release:chrome": "cd distribution && webstore upload --auto-publish",
     "release:firefox": "cd distribution && web-ext-submit",
     "watch": "webpack --mode=development --watch",
-    "run": "web-ext run --source-dir=./distribution --args https://open.spotify.com/ about:devtools-toolbox?type=extension\\&id=bc-nudge%40addiebarron.github.io",
-    "dev": "npm run build && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run"
+    "run": "web-ext run --args https://open.spotify.com/ about:devtools-toolbox?type=extension\\&id=bc-nudge%40addiebarron.github.io",
+    "run:chrome": "web-ext run -t chromium",
+    "dev": "npm run build && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run",
+    "dev:chrome": "npm run build && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run:chrome"
+  },
+  "webExt": {
+    "sourceDir": "./distribution"
   },
   "dependencies": {
     "arrive": "^2.4.1",
@@ -23,6 +28,7 @@
     "@babel/preset-env": "^7.12.11",
     "babel-loader": "^8.2.2",
     "chrome-webstore-upload-cli": "^1.2.0",
+    "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.3.0",
     "copy-webpack-plugin": "^5.0.3",
     "daily-version": "^0.12.0",
