@@ -1,8 +1,8 @@
 /* structure */
-.bc-nudge * {
+.bananacamp * {
   box-sizing: border-box;
 }
-.bc-nudge {
+.bananacamp {
   display: inline;
   padding: 3px 0.5em;
   margin-left: 13px;
@@ -10,7 +10,7 @@
   border: solid 1px transparent; /* prevent any shifting when the border is added */
   border-radius: 5px;
 }
-.bc-nudge img {
+.bananacamp img {
   position: relative;
   bottom: 2px;
   vertical-align: middle;
@@ -19,10 +19,10 @@
 }
 
 /* loading state */
-.bc-nudge:not(.success):not(.failure) {
+.bananacamp:not(.success):not(.failure) {
   color: rgba(255, 255, 255, 0.4);
 }
-.bc-nudge:not(.success):not(.failure):after {
+.bananacamp:not(.success):not(.failure):after {
   overflow: hidden;
   display: inline-block;
   vertical-align: bottom;
@@ -37,17 +37,17 @@
 }
 
 /* success state */
-.bc-nudge.success {
+.bananacamp.success {
   border-color: hsla(0, 0%, 100%, 0.3);
   animation: look-at-me 0.3s cubic-bezier(0.3, 3, 0.5, 1.5);
   cursor: pointer;
   color: rgba(255, 255, 255, 0.5);
 }
-.bc-nudge.success:hover {
+.bananacamp.success:hover {
   border-color: white;
   color: white;
 }
-.bc-nudge.success a {
+.bananacamp.success a {
   color: hsla(0, 0%, 100%, 0.9);
   text-decoration: none;
 }
@@ -61,7 +61,7 @@
 }
 
 /* failure state */
-.bc-nudge.failure {
+.bananacamp.failure {
   color: rgba(255, 255, 255, 0.5);
   border-color: hsla(0, 0%, 100%, 0.3);
 }

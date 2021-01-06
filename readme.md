@@ -1,4 +1,4 @@
-# bc-nudge (working title)
+# bananacamp (working title)
 
 Templated from [browser-extension-template](https://github.com/notlmn/browser-extension-template). Under development by [Jean](https://github.com/jeancochrane) and [Addie](https://github.com/addiebarron) :)
 

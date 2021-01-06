@@ -27,10 +27,10 @@ async function runScraper() {
   const { artist, type } = await spotifyScrape();
 
   // render initial state
-  $('.bc-nudge').remove(); // clear any stragglers;
+  $('.bananacamp').remove(); // clear any stragglers;
   const bcLogo = browser.runtime.getURL('media/bc-logo@64.png');
   const $bcNudge = $(
-    `<div class="bc-nudge"><img src="${bcLogo}"/></div>`
+    `<div class="bananacamp"><img src="${bcLogo}"/></div>`
   ).appendTo(selectors[type].msgElement);
 
   // add loader
