@@ -1,3 +1,4 @@
 pre-commit:
   commands:
-    run: commit-colors $(git rev-parse HEAD)
+    commit-colors:
+      run: commit-colors $(git rev-parse HEAD)
