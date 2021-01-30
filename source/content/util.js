@@ -41,7 +41,7 @@ export async function getBCResult(query) {
   return results.find(
     (result) =>
       result.type == 'artist' &&
-      result.name.toLowerCase() == artist.toLowerCase()
+      result.name.toLowerCase() == query.toLowerCase()
   );
   // returns a bandcamp search result object or null
 }

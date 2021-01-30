@@ -5,7 +5,8 @@ import bandcamp from 'bandcamp-search-scraper';
 
 // bypass CORS by performing bandcamp fetch request for content script
 browser.runtime.onMessage.addListener((message) => {
-  fetchBCData(message.query);
+  console.log('request to fetch data received');
+  return fetchBCData(message.query);
 });
 
 // can't be async, see content/index.js. returns a Promise as advised here:
