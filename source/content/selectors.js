@@ -6,7 +6,7 @@ const sharedParents = [
   'section',
   'div:first-of-type',
 ];
-export const selectors = {
+export default {
   verifiedArtist: {
     artist: sharedParents
       .concat(['div', 'div', 'span:nth-child(2)', 'h1'])

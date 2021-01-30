@@ -4,22 +4,21 @@ import browser from 'webextension-polyfill';
 import bandcamp from 'bandcamp-search-scraper';
 
 // bypass CORS by performing bandcamp fetch request for content script
-browser.runtime.onMessage.addListener(fetchBCData);
+browser.runtime.onMessage.addListener((message) => {
+  fetchBCData(message.query);
+});
 
 // can't be async, see content/index.js. returns a Promise as advised here:
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage#Sending_an_asynchronous_response_using_a_Promise
-function fetchBCData(message) {
+export function fetchBCData(query) {
   return new Promise(async (resolve) => {
-    if (message.bcParams) {
-      let bcResults;
-      try {
-        bcResults = await bandcamp.search(message.bcParams);
-      } catch (err) {
-        console.error(err);
-        bcResults = [];
-      }
-      resolve({ bcResults });
+    let results;
+    try {
+      results = await bandcamp.search({ query, page: 1 });
+    } catch (err) {
+      results = [];
     }
+    resolve({ results });
   });
 }
 
