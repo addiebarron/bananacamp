@@ -4,3 +4,4 @@ pre-commit:
       run: commit-colors $(git rev-parse HEAD)
 skip_output:
   - meta
+  - success
