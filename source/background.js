@@ -6,7 +6,7 @@ import bandcamp from 'bandcamp-search-scraper';
 // on installation
 browser.runtime.onInstalled.addListener(function () {
   browser.tabs.create({
-    url: 'https://addieis.online/bananacamp',
+    url: 'https://addieis.online/bananacamp?install',
     active: true,
   });
   return false;

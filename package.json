@@ -11,8 +11,8 @@
     "release:firefox": "cd distribution && web-ext-submit",
     "watch": "webpack --mode=development --watch",
     "test": "jest",
-    "dev": "npm run build && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run",
-    "dev:chrome": "npm run build && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run:chrome",
+    "dev": "npm run build:dev && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run",
+    "dev:chrome": "npm run build:dev && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run:chrome",
     "run": "web-ext run --args https://open.spotify.com/ about:devtools-toolbox?type=extension\\&id=bananacamp%40addiebarron.github.io",
     "run:chrome": "web-ext run -t chromium --args https://open.spotify.com/"
   },
