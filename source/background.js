@@ -3,6 +3,15 @@
 import browser from 'webextension-polyfill';
 import bandcamp from 'bandcamp-search-scraper';
 
+// on installation
+browser.runtime.onInstalled.addListener(function () {
+  browser.tabs.create({
+    url: 'https://addieis.online/bananacamp',
+    active: true,
+  });
+  return false;
+});
+
 // bypass CORS by performing bandcamp fetch request for content script
 browser.runtime.onMessage.addListener((message) => {
   console.log('request to fetch data received');

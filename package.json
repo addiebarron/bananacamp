@@ -5,7 +5,8 @@
   },
   "private": true,
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode=production",
+    "build:dev": "webpack --mode=development",
     "release:chrome": "cd distribution && webstore upload --auto-publish",
     "release:firefox": "cd distribution && web-ext-submit",
     "watch": "webpack --mode=development --watch",

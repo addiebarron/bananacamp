@@ -22,11 +22,12 @@ Please feel free to fork and make pull requests.
 
 ### To do
 
-- Testing
 - Differentiate between errors and no-results conditions
 
 ### Wishlist
 
+- Browser action popup on pages with successfully loaded artists
+- Options page
 - Cache previously visited artists.
 - Option to manually associate BC accounts with Spotify artists, for cases where the BC/Spotfy names are different, there are multiple artists with the same name, or the artist name uses special characters. Store these associations in a remote DB & query there before searching BC?
 - When Bandcamp search improves, or a public API is released: search by album specifically.

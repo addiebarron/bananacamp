@@ -5,12 +5,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
-  stats: 'errors-only',
   entry: {
     content: './source/content',
     background: './source/background',
-    options: './source/options',
+    // options: './source/options',
   },
   output: {
     path: path.join(__dirname, 'distribution'),
@@ -21,14 +19,16 @@ module.exports = {
       cleanStaleWebpackAssets: false,
     }),
     new SizePlugin(),
-    new CopyWebpackPlugin([
-      {
-        from: '**/*',
-        context: 'source',
-        ignore: ['*.js'],
-        copyUnmodified: true,
-      },
-    ]),
+    new CopyWebpackPlugin(
+      [
+        {
+          from: '**/*',
+          context: 'source',
+          copyUnmodified: true,
+        },
+      ],
+      { ignore: ['*.js', '__tests__/**'] }
+    ),
   ],
   optimization: {
     minimizer: [
@@ -53,4 +53,6 @@ module.exports = {
       },
     ],
   },
+  devtool: 'source-map',
+  stats: 'errors-only',
 };
