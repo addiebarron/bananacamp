@@ -36,4 +36,4 @@ Please feel free to fork and make pull requests.
 
 _This repository was templated from [browser-extension-template](https://github.com/notlmn/browser-extension-template)._
 
-_Developed with feedback and support from [Jean Cochrane](https://github.com/jeancochrane)._
+_Developed with feedback and support from [Jean Cochrane](https://github.com/jeancochrane) and [Cullan Bonilla](https://github.com/strewburry)._
