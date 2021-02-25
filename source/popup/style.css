@@ -1,20 +1,17 @@
 html,
 body {
-  overflow-x: hidden; /* Required to hide horizontal scroll on Firefox */
+  margin: 0;
+  padding: 0;
 }
-
 body {
-  padding: 10px;
-  max-width: 300px;
+  width: 155px;
 }
 
 h1 {
-  font-size: 25px;
+  margin: 0;
+  padding: 5px 0;
+  font-weight: normal;
   width: 100%;
-}
-
-p {
-  color: grey;
-  font-style: italic;
-  text-indent: 20px;
+  text-align: center;
+  font-size: 15px;
 }

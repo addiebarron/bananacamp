@@ -1,8 +1,8 @@
 {
   "name": "bananacamp",
-  "version": "0.0.1",
-  "description": "Listening on Spotify? Buy it on Bandcamp, ya goob!",
-  "author": "Addie B",
+  "version": "0.0.3",
+  "description": "Automatically finds an artist's Bandcamp page while browsing Spotify Web.",
+  "author": "Addie Barron",
   "homepage_url": "https://github.com/addiebarron/bananacamp",
   "manifest_version": 2,
   "minimum_chrome_version": "74",
@@ -15,7 +15,6 @@
   "icons": {
     "128": "icon.png"
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';",
   "web_accessible_resources": ["media/*"],
   "permissions": ["tabs", "*://bandcamp.com/*", "*://*.spotify.com/*"],
   "content_scripts": [
@@ -26,7 +25,7 @@
     }
   ],
   "browser_action": {
-    // "default_popup": "popup/index.html",
+    "default_popup": "popup/index.html",
     "default_icon": {
       "128": "icon.png"
     }

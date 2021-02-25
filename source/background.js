@@ -4,17 +4,19 @@ import browser from 'webextension-polyfill';
 import bandcamp from 'bandcamp-search-scraper';
 
 // on installation
-browser.runtime.onInstalled.addListener(function () {
-  browser.tabs.create({
-    url: 'https://addieis.online/bananacamp?install',
-    active: true,
-  });
+browser.runtime.onInstalled.addListener((details) => {
+  if (details.reason == 'install') {
+    browser.tabs.create({
+      url: 'https://addieis.online/project/bananacamp?install',
+      active: true,
+    });
+  }
   return false;
 });
 
 // bypass CORS by performing bandcamp fetch request for content script
 browser.runtime.onMessage.addListener((message) => {
-  console.log('request to fetch data received');
+  console.log('fetching data for: ', message.query);
   return fetchBCData(message.query);
 });
 
@@ -47,7 +49,7 @@ browser.runtime.onConnect.addListener((p) => {
 function onURLChange(tabId, changeInfo) {
   const newURL = changeInfo.url;
   if (newURL && /open\.spotify\.com/.test(newURL)) {
-    console.log('url changed');
+    console.log('url changed:', newURL);
     const message = {
       url: newURL,
     };

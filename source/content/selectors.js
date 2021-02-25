@@ -25,7 +25,7 @@ export default {
   },
   album: {
     artist: sharedParents
-      .concat(['div:nth-of-type(5)', 'div', 'a[href^="/artist"]:first-of-type'])
+      .concat(['div:nth-of-type(5)', 'div', 'div:first-child', 'a'])
       .join('>'),
     msgElement: sharedParents
       .concat(['div:last-child', 'div:last-child'])
