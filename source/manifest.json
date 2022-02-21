@@ -1,6 +1,6 @@
 {
   "name": "bananacamp",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Automatically finds an artist's Bandcamp page while browsing Spotify Web.",
   "author": "Addie Barron",
   "homepage_url": "https://github.com/addiebarron/bananacamp",
@@ -19,7 +19,7 @@
   "permissions": ["tabs", "*://bandcamp.com/*", "*://*.spotify.com/*"],
   "content_scripts": [
     {
-      "matches": ["*://open.spotify.com/*"],
+      "matches": ["*://open.spotify.com/artist/*"],
       "css": ["content/style.css"],
       "js": ["content/index.js"]
     }

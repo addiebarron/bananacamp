@@ -14,7 +14,7 @@
     "test": "jest",
     "dev": "npm run build:dev && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run",
     "dev:chrome": "npm run build:dev && concurrently -c cyan,red -n webpack,web-ext npm:watch npm:run:chrome",
-    "run": "web-ext run --args https://open.spotify.com/ about:devtools-toolbox?type=extension\\&id=bananacamp%40addiebarron.github.io",
+    "run": "web-ext run --verbose --args https://open.spotify.com/ about:devtools-toolbox?type=extension\\&id=bananacamp%40addiebarron.github.io",
     "run:chrome": "web-ext run -t chromium --args https://open.spotify.com/"
   },
   "webExt": {
@@ -40,7 +40,6 @@
     "webextension-polyfill": "^0.4.0"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "^0.7.3",
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/preset-env": "^7.12.11",

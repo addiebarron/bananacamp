@@ -3,7 +3,7 @@
 import browser from 'webextension-polyfill';
 
 import HTMLRender from './htmlRender';
-import { spotifyScrape, getBCResult } from './util';
+import { getSpotifyInfo, getBCInfo } from './util';
 
 // establish a port for communicating with the background script
 let port = browser.runtime.connect({ name: 'url-change-port' });
@@ -24,14 +24,19 @@ function onURLChange(message) {
 
 // main function
 export async function runScraper() {
-  // get artist name
-  const { artist, type } = await spotifyScrape();
+  let artist, type;
+  try {
+    ({ artist, type } = await getSpotifyInfo());
+  } catch (e) {
+    console.error(e);
+    return;
+  }
   // generate renderer functions
   const renderer = new HTMLRender(type);
   // add loader
   renderer.renderInitialState();
   // scrape bandcamp search
-  const result = await getBCResult(artist);
+  const result = await getBCInfo(artist);
   // remove loader, show results
   renderer.renderFinalState(result);
 }

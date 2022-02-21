@@ -1,6 +1,0 @@
-pre-commit:
-  commands:
-    commit-colors:
-      run: commit-colors $(git rev-parse HEAD)
-skip_output:
-  - meta

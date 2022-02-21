@@ -1,34 +1,79 @@
-// construct some nasty selectors
+// Construct some nasty selectors
 
-const sharedParents = [
-  '.os-content',
-  '.main-view-container__scroll-node-child',
-  'section',
+const artist = {
+  artist: [
+    'section[data-testid="artist-page"]',
+    'div',
+    'div:first-of-type',
+    'div:last-of-type',
+    'span:first-child',
+    'h1',
+  ].join('>'),
+  msgElement: [
+    'section[data-testid="artist-page"]',
+    'div',
+    'div:first-of-type',
+    'div:last-of-type',
+    'span:last-child',
+  ].join('>'),
+}
+
+const verifiedArtist = {
+  artist: [
+    'section[data-testid="artist-page"]',
+    'div',
+    'div:first-of-type',
+    'div:nth-child(2)',
+    'span:nth-child(2)',
+    'h1',
+  ].join('>'),
+  msgElement: [
+    'section[data-testid="artist-page"]',
+    'div',
+    'div:first-of-type',
+    'div:nth-child(2)',
+    'span:nth-child(3)',
+  ].join('>'),
+}
+
+// not currently used
+const album = {
+  album: [
+    'section[data-testid="album-page"]',
+    'div:first-child',
+    'div:nth-child(5)',
+    'span:first-of-type',
+    'h1',
+  ].join('>'),
+  artist: [
+    'section[data-testid="album-page"]',
+    'div:first-child',
+    'div:nth-child(5)',
+    'div:last-child',
+    'div:first-child',
+    'span:nth-child(2)',
+    'a',
+  ],
+  msgElement: [
+    'section[data-testid="album-page"]',
+    'div:first-child',
+    'div:nth-child(5)',
+    'div:last-child',
+  ].join('>'),
+}
+
+let verifiedSVG = [
+  'section[data-testid="artist-page"]',
+  'div',
   'div:first-of-type',
-];
+  'div:nth-child(2)',
+  'span:first-child',
+  'svg'
+].join('>')
+
 export default {
-  verifiedArtist: {
-    artist: sharedParents
-      .concat(['div', 'div', 'span:nth-child(2)', 'h1'])
-      .join('>'),
-    msgElement: sharedParents
-      .concat(['div', 'div', 'span:nth-child(3)'])
-      .join('>'),
-  },
-  artist: {
-    artist: sharedParents
-      .concat(['div:first-child', 'div:last-child', 'span:first-child', 'h1'])
-      .join('>'),
-    msgElement: sharedParents
-      .concat(['div:first-child', 'div:last-child', 'span:last-child'])
-      .join('>'),
-  },
-  album: {
-    artist: sharedParents
-      .concat(['div:nth-of-type(5)', 'div', 'div:first-child', 'a'])
-      .join('>'),
-    msgElement: sharedParents
-      .concat(['div:last-child', 'div:last-child'])
-      .join('>'),
-  },
+  artist,
+  verifiedArtist,
+  // album,
+  verifiedSVG,
 };
