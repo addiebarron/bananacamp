@@ -36,6 +36,7 @@
   "dependencies": {
     "arrive": "^2.4.1",
     "bandcamp-search-scraper": "github:addiebarron/bandcamp-search-scraper",
+    "env-cmd": "^10.1.0",
     "jquery": "^3.5.1",
     "webextension-polyfill": "^0.4.0"
   },
@@ -49,7 +50,6 @@
     "concurrently": "^5.3.0",
     "copy-webpack-plugin": "^5.0.3",
     "daily-version": "^0.12.0",
-    "env-cmd": "^10.1.0",
     "jest": "^26.6.3",
     "jest-webextension-mock": "^3.7.7",
     "regenerator-runtime": "^0.13.7",
