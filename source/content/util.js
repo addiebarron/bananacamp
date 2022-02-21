@@ -15,7 +15,6 @@ export function getSpotifyInfo() {
 
   return new Promise((resolve, reject) => {
     document.unbindArrive(); // jic
-    console.log(selectors);
     document.arrive(selectors[type].artist, { onceOnly: true, existing: true },
       (el) => {
         const artist = el.innerText;

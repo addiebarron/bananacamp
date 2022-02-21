@@ -3,3 +3,4 @@ distribution/
 web-ext-artifacts/
 .unused
 .env
+source.zip
