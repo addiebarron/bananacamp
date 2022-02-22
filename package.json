@@ -8,7 +8,7 @@
     "prebuild": "npm run test",
     "build": "webpack --mode=production && web-ext build -o && zip -vr source.zip source/ -x \"*.DS_Store\"",
     "build:dev": "webpack --mode=development",
-    "release:chrome": "npm run build && webstore upload --auto-publish",
+    "release:chrome": "npm run build && env-cmd webstore upload --auto-publish",
     "release:firefox": "npm run build && env-cmd web-ext-submit",
     "watch": "webpack --mode=development --watch",
     "test": "jest",
