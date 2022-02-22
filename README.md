@@ -4,7 +4,7 @@
 
 _— Joanna Newsom_
 
-This browser extension adds an extra element into the Spotify Web UI which links to the artist's Bandcamp page, if one is found. Only artist and album pages are affected. The extension is available for Firefox and Chrome.
+This browser extension adds an extra element into the Spotify Web UI which links to the artist's Bandcamp page, if one is found. Only artist pages are affected right now. The extension is available for Firefox and Chrome.
 
 ![Artist page](media/artist.png)
 
